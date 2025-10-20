@@ -32,8 +32,21 @@ func main() {
 
 	bookOne.CheckOut()
 
+	library := models.Library{
+		Name:  "My Library",
+		Books: []models.Book{bookOne, bookTwo},
+	}
+
 	fmt.Printf(" -----------------Books--------------------------------------------- \n")
 	fmt.Println(bookOne.DisplayInfo())
 	fmt.Println(bookTwo.DisplayInfo())
+	fmt.Printf("--------------------------Total Books in My library ------------------\n")
+	fmt.Println("There are ", library.TotalBooks(), "books in my library")
+	fmt.Printf("\n")
+	fmt.Printf("---------------------------Available Books --------------------------- \n")
+	fmt.Printf("\n")
+	for _, book := range library.AvailableBooks() {
+		fmt.Println(book.DisplayInfo())
+	}
 	fmt.Printf("--------------------------------------------------------------------")
 }
