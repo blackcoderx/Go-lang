@@ -5,6 +5,12 @@ import (
 	"fmt"
 )
 
+func makeLateFeeCalculator(dailyRate float64) func(int) float64 {
+	return func(daysLate int) float64 {
+		return float64(daysLate) * dailyRate
+	}
+}
+
 func main() {
 	bookOne := models.Book{
 		Title:     "Go lang for dummies",
@@ -54,4 +60,12 @@ func main() {
 
 		fmt.Println("Found Book with ISBN - ", book.ISBN, "\n", book.DisplayInfo())
 	}
+
+	fmt.Printf("------------------------charges for keeping books-------------------------\n")
+	lateFeeCalculator := makeLateFeeCalculator(0.25)
+
+	daysLate := 5
+	lateFee := lateFeeCalculator(daysLate)
+
+	fmt.Println("GHS", lateFee)
 }

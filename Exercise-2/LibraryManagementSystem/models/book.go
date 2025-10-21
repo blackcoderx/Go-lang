@@ -27,5 +27,7 @@ func (b Book) DisplayInfo() string {
 }
 
 func (b *Book) CheckOut() {
+	defer fmt.Println("Checkout complete:", b.Title)
+
 	b.Available = false
 }

@@ -1,5 +1,7 @@
 package models
 
+import "fmt"
+
 type Library struct {
 	Name        string
 	Books       []Book
@@ -14,6 +16,8 @@ func NewLibrary(name string) *Library {
 	}
 }
 func (l *Library) AddBook(book Book) {
+	defer fmt.Println("Book added:", book.Title)
+
 	l.Books = append(l.Books, book)
 	l.BooksByISBN[book.ISBN] = &l.Books[len(l.Books)-1]
 	// "&" saves the memory address of the Book at len-1
