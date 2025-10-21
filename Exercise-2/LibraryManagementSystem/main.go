@@ -8,7 +8,7 @@ import (
 func main() {
 	bookOne := models.Book{
 		Title:     "Go lang for dummies",
-		ISBN:      "123455678AB",
+		ISBN:      "AB001",
 		Pages:     550,
 		Available: true,
 		Author: models.Author{
@@ -20,7 +20,7 @@ func main() {
 
 	bookTwo := models.Book{
 		Title:     "Rust for dummies",
-		ISBN:      "98765432AB",
+		ISBN:      "AB001",
 		Pages:     1100,
 		Available: true,
 		Author: models.Author{
@@ -32,10 +32,9 @@ func main() {
 
 	bookOne.CheckOut()
 
-	library := models.Library{
-		Name:  "My Library",
-		Books: []models.Book{bookOne, bookTwo},
-	}
+	library := models.NewLibrary("City Library")
+	library.AddBook(bookOne)
+	library.AddBook(bookTwo)
 
 	fmt.Printf(" -----------------Books--------------------------------------------- \n")
 	fmt.Println(bookOne.DisplayInfo())
@@ -48,5 +47,11 @@ func main() {
 	for _, book := range library.AvailableBooks() {
 		fmt.Println(book.DisplayInfo())
 	}
-	fmt.Printf("--------------------------------------------------------------------")
+	fmt.Printf("--------------------------------------------------------------------\n")
+
+	book, found := library.FindByISBN("AB001")
+	if found {
+
+		fmt.Println("Found Book with ISBN - ", book.ISBN, "\n", book.DisplayInfo())
+	}
 }
